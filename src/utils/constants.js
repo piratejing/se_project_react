@@ -114,3 +114,5 @@ export const weatherOptions = [
 export const latitude = 44.34;
 export const longitude = 10.99;
 export const APIkey = "b16df09c6afe056b1f402fb0333c75fb";
+
+export const currentDate = new Date().toLocaleString("default", { month: "long", day: "numeric" });

@@ -1,6 +1,7 @@
 import "../blocks/Header.css";
 import headerAvatar from "../images/avatar-wtwr.svg";
 import headerLogo from "../images/wtwr-logo.svg";
+import { currentDate } from "../utils/constants";
 
 const Header = ({ onCreateModal }) => {
   return (
@@ -9,7 +10,7 @@ const Header = ({ onCreateModal }) => {
         <div>
           <img src={headerLogo} alt="logo" />
         </div>
-        <div className="header__date">June 1st, Oregon</div>
+        <div className="header__date">{currentDate}, Oregon</div>
       </div>
       <div className="header__avatar-logo">
         <div>
