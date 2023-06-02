@@ -9,7 +9,7 @@ const Header = ({ onCreateModal }) => {
         <div>
           <img src={headerLogo} alt="logo" />
         </div>
-        <div className="header__date">May 31, Oregon</div>
+        <div className="header__date">June 1st, Oregon</div>
       </div>
       <div className="header__avatar-logo">
         <div>
