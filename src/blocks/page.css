@@ -1,8 +1,12 @@
+.page__wrapper {
+  background-color: #f3f3f3;
+  min-height: 100vh;
+}
+
 .page {
-  position: absolute;
   background-color: #f3f3f3;
   max-width: 1440px;
-  min-height: 822px;
+  max-height: 822px;
   margin: 0 auto;
   color: #000;
 }

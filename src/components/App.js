@@ -36,41 +36,43 @@ function App() {
   }, []);
 
   return (
-    <div className="page">
-      <Header onCreateModal={handleCreateModal} />
-      <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
-      <Footer />
-      {activeModal === "create" && (
-        <ModalWithForm title="New Garment" buttonText="Add Garment" onClose={handleCloseModal}>
-          <div className="modal__labels">
-            <label className="modal__label">
-              Name
-              <input className="modal__input" placeholder="Name" type="text" name="name" minLength="1" maxLength="30" />
-            </label>
-            <label className="modal__label">
-              Image
-              <input className="modal__input" placeholder="Image URL" type="url" name="link" minLength="1" maxLength="30" />
-            </label>
-          </div>
-          <p className="modal__text">Select the weather type:</p>
-          <div className="modal__buttons">
-            <div className="modal__button">
-              <input className="modal__button-input" type="radio" id="hot" value="hot" name="weather-type" />
-              <label>Hot</label>
+    <div className="page__wrapper">
+      <div className="page">
+        <Header onCreateModal={handleCreateModal} />
+        <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+        <Footer />
+        {activeModal === "create" && (
+          <ModalWithForm title="New Garment" buttonText="Add Garment" onClose={handleCloseModal}>
+            <div className="modal__labels">
+              <label className="modal__label">
+                Name
+                <input className="modal__input" placeholder="Name" type="text" name="name" minLength="1" maxLength="30" />
+              </label>
+              <label className="modal__label">
+                Image
+                <input className="modal__input" placeholder="Image URL" type="url" name="link" minLength="1" maxLength="30" />
+              </label>
             </div>
+            <p className="modal__text">Select the weather type:</p>
+            <div className="modal__buttons">
+              <div className="modal__button">
+                <input className="modal__button-input" type="radio" id="hot" value="hot" name="weather-type" />
+                <label>Hot</label>
+              </div>
 
-            <div className="modal__button">
-              <input className="modal__button-input" type="radio" id="warm" value="warm" name="weather-type" />
-              <label>Warm</label>
+              <div className="modal__button">
+                <input className="modal__button-input" type="radio" id="warm" value="warm" name="weather-type" />
+                <label>Warm</label>
+              </div>
+              <div className="modal__button">
+                <input className="modal__button-input" type="radio" id="cold" value="cold" name="weather-type" />
+                <label>Cold</label>
+              </div>
             </div>
-            <div className="modal__button">
-              <input className="modal__button-input" type="radio" id="cold" value="cold" name="weather-type" />
-              <label>Cold</label>
-            </div>
-          </div>
-        </ModalWithForm>
-      )}
-      {activeModal === "preview" && <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />}
+          </ModalWithForm>
+        )}
+        {activeModal === "preview" && <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />}
+      </div>
     </div>
   );
 }
