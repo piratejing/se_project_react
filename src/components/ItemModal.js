@@ -1,18 +1,25 @@
-import "../blocks/ItemModal.css";
-import closeButton from "../images/close-button.svg";
+import closeButton from "../images/closeButton.svg";
 
-const ItemModal = ({ selectedCard, onClose }) => {
+const ItemModal = ({ selectedCard, onClose, onDelete }) => {
   return (
-    <div className="item__modal">
-      <div className="item__modal-content">
-        <button type="button" className="modal__button-close" onClick={onClose}>
+    <div className={`modal`}>
+      <div className="modal__content modal__content_preview">
+        <button type="button" onClick={onClose} className="modal__close-button">
           <img src={closeButton} alt="close button" />
         </button>
-        <img src={selectedCard.link} className="item__modal-image" alt={selectedCard.name} />
-        <div className="item__modal-description">{selectedCard.name}</div>
-        <div className="item__modal-description">Weather: {selectedCard.weather}</div>
+        <img src={selectedCard.link} alt="preview" className="modal__image-preview" />
+        <div className="modal__text-container">
+          <div className="modal__preview-text">
+            <div>{selectedCard.name}</div>
+            <div>Weather type: {selectedCard.weather}</div>
+          </div>
+          <div className="modal__delete" onClick={() => onDelete(selectedCard)}>
+            delete item
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
 export default ItemModal;

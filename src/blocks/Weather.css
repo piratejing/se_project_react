@@ -1,7 +1,11 @@
+.weather__main {
+  padding: 28px 40px 0 40px;
+}
+
 .weather {
   position: relative;
-  margin-bottom: 40px;
 }
+
 .weather__temp {
   position: absolute;
   top: 20px;
@@ -9,6 +13,7 @@
   color: #ffffff;
   font-size: 36px;
 }
+
 .weather__image {
   width: 100%;
 }

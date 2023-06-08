@@ -1,45 +1,73 @@
 .header {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  min-height: 60px;
-  padding: 32px 40px 28px;
+  padding: 0 40px;
+  height: 69px;
   font-family: "FamiljenGrotesk-Bold", Arial, sans-serif;
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
 }
-.header__logo {
-  display: flex;
 
-  align-items: center;
-}
-.header__avatar-logo {
+.header__logo-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: 24px;
 }
+
+.header__logo {
+  padding: 32px 0 0 0;
+}
+
 .header__date {
-  margin-left: 24px;
-  line-height: 25px;
-  font-size: 20px;
-  font-weight: 700;
+  padding: 43px 0 0 0;
 }
-.header__name {
-  margin-right: 12px;
-  line-height: 25px;
-  font-size: 20px;
-  font-weight: 700;
+
+.header__avatar-logo-container {
+  display: flex;
+  align-items: center;
+  margin: 40px 0 0 0;
 }
+
+.header__button-holder {
+  padding: 0px 20px 0 20px;
+}
+
 .header__button {
-  margin-right: 20px;
-  background-color: transparent;
   border: none;
+  background: none;
+  padding: 0;
+  font-family: "FamiljenGrotesk-Bold", Arial, sans-serif;
+  font-weight: 700;
   font-size: 20px;
   line-height: 24px;
-  font-weight: 700;
-}
-.header__button:hover {
   cursor: pointer;
-  opacity: 0.6;
+}
+
+.header__button:hover {
+  opacity: 0.5;
+}
+
+.header__name {
+  padding: 0px 12px 0 0;
+  cursor: pointer;
+}
+
+.header__name:hover {
+  opacity: 0.5;
+}
+
+.header__avatar {
+  padding: 6px 0 0 0;
+  cursor: pointer;
+}
+
+.header__avatar:hover {
+  opacity: 0.5;
+}
+
+.header__link {
+  color: black;
+  text-decoration: none;
 }
