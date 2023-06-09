@@ -49,7 +49,7 @@ export default function AddItemModal({ onClose, isOpen, onAddItem }) {
         </label>
         <label className="modal__label">
           Image
-          <input className="modal__input" type="url" name="link" minLength="1" placeholder="Image Url" onChange={handleLink} />
+          <input className="modal__input" type="url" name="link" minLength="1" placeholder="Image Url" value={link} onChange={handleLink} />
         </label>
       </div>
       <p className="modal__paragraph">Select the weather type:</p>

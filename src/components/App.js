@@ -27,6 +27,18 @@ function App() {
     setActiveModal("");
   };
 
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+
+    document.addEventListener("keydown", closeByEscape);
+
+    return () => document.removeEventListener("keydown", closeByEscape);
+  }, []);
+
   const handleSelectedCard = (card) => {
     setActiveModal("preview");
     setSelectedCard(card);
@@ -82,24 +94,22 @@ function App() {
   };
 
   return (
-    <div>
-      <BrowserRouter>
-        <CurrentTemperatureUnitContext.Provider value={{ currentTemperatureUnit, handleToggleSwitchChange }}>
-          <Header onCreateModal={handleCreateModal} />
-          <Switch>
-            <Route exact path="/">
-              <Main weatherTemp={temp} onSelectCard={handleSelectedCard} clothingItems={clothingItems} />
-            </Route>
-            <Route path="/profile">
-              <Profile items={clothingItems} onSelectCard={handleSelectedCard} />
-            </Route>
-          </Switch>
-          <Footer />
-          {activeModal === "preview" && <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} onDelete={handleDeleteItem} />}
-          {activeModal === "create" && <AddItemModal onClose={handleCloseModal} isOpen={handleCreateModal} onAddItem={handleAddItem} />}
-        </CurrentTemperatureUnitContext.Provider>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <CurrentTemperatureUnitContext.Provider value={{ currentTemperatureUnit, handleToggleSwitchChange }}>
+        <Header onCreateModal={handleCreateModal} />
+        <Switch>
+          <Route exact path="/">
+            <Main weatherTemp={temp} onSelectCard={handleSelectedCard} clothingItems={clothingItems} />
+          </Route>
+          <Route path="/profile">
+            <Profile items={clothingItems} onSelectCard={handleSelectedCard} openModal={handleCreateModal} />
+          </Route>
+        </Switch>
+        <Footer />
+        {activeModal === "preview" && <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} onDelete={handleDeleteItem} />}
+        {activeModal === "create" && <AddItemModal onClose={handleCloseModal} isOpen={handleCreateModal} onAddItem={handleAddItem} />}
+      </CurrentTemperatureUnitContext.Provider>
+    </BrowserRouter>
   );
 }
 

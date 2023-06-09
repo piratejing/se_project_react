@@ -8,4 +8,9 @@
 .clothes__button {
   border: none;
   background: none;
+  cursor: pointer;
+}
+
+.clothes__button:hover {
+  color: rgba(0, 0, 0, 80%);
 }

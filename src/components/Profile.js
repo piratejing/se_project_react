@@ -4,15 +4,15 @@ import ItemCard from "./ItemCard";
 import "../blocks/Profile.css";
 import "../blocks/ItemCards.css";
 
-export function Profile({ items, onSelectCard }) {
-  console.log(items);
+export function Profile({ items, onSelectCard, openModal }) {
+  console.log(openModal);
   return (
     <div className="profile">
       <div className="profile__sidebar">
         <SideBar />
       </div>
       <div className="profile__clothes-section">
-        <ClothesSection />
+        <ClothesSection openModal={openModal} />
         <section className="cards">
           <ul className="cards__list">
             {items.map((card) => (
