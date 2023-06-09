@@ -11,10 +11,10 @@ const ItemModal = ({ selectedCard, onClose, onDelete }) => {
         <div className="modal__text-container">
           <div className="modal__preview-text">
             <div>{selectedCard.name}</div>
-            <div>Weather type: {selectedCard.weather}</div>
+            <div>Weather: {selectedCard.weather}</div>
           </div>
           <div className="modal__delete" onClick={() => onDelete(selectedCard)}>
-            delete item
+            Delete item
           </div>
         </div>
       </div>
