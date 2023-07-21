@@ -1,0 +1,12 @@
+.page {
+  padding: 0;
+  background-color: #f3f3f3;
+}
+
+.main__heading {
+  font-family: "FamiljenGrotesk-Bold", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  padding: 0 40px;
+}

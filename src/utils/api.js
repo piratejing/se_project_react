@@ -1,34 +1,77 @@
-import { baseUrl } from "./constants";
-import { checkResponse } from "./utils";
+const baseUrl = "http://localhost:3001";
 
-export const getItems = () => {
+export const checkResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  } else {
+    return Promise.reject(`Error ${res.status}`);
+  }
+};
+
+export const getClothingItems = () => {
   return fetch(`${baseUrl}/items`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
+      "Content-type": "application/json",
     },
-  }).then(checkResponse);
+  }).then((res) => checkResponse(res));
 };
 
-export const addItem = ({ name, weather, link }) => {
+export const addClothingItem = ({ name, imageUrl, weather, token }) => {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-type": "application/json",
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       name,
+      imageUrl,
       weather,
-      link,
     }),
-  }).then(checkResponse);
+  }).then((res) => checkResponse(res));
 };
 
-export const deleteItem = (id) => {
+export const deleteCard = (id, token) => {
   return fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers: {
-      "Content-Type": "application/json",
+      "Content-type": "application/json",
+      authorization: `Bearer ${token}`,
     },
-  }).then(checkResponse);
+  }).then((res) => checkResponse(res));
+};
+
+export const editProfile = ({ name, avatar, token }) => {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name,
+      avatar,
+    }),
+  }).then((res) => checkResponse(res));
+};
+
+export const addCardLike = (id, user, token) => {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => checkResponse(res));
+};
+
+export const removeCardLike = (id, user, token) => {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => checkResponse(res));
 };

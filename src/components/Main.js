@@ -1,42 +1,41 @@
+import "../blocks/Main.css";
+import React from "react";
 import WeatherCard from "./WeatherCard";
 import ItemCard from "./ItemCard";
-import { useContext } from "react";
 import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
-import { temperature } from "../utils/weatherApi";
+import { useContext } from "react";
 
-function Main({ weatherTemp, onSelectCard, clothingItems }) {
+function Main({ cards, weatherTemp, onSelectCard, weatherCard, onCardLike }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-
+  const currentTemp = weatherTemp[currentTemperatureUnit];
   const getWeatherType = () => {
-    if (weatherTemp >= 86) {
+    if (currentTemp >= 86) {
       return "hot";
-    } else if (weatherTemp >= 66 && weatherTemp <= 85) {
+    } else if (currentTemp >= 66 && currentTemp <= 85) {
       return "warm";
-    } else if (weatherTemp <= 65) {
+    } else if (currentTemp <= 65) {
       return "cold";
     }
   };
   const weatherType = getWeatherType();
 
-  const currentTemp = temperature(weatherTemp);
-  const currentTempString = currentTemp[currentTemperatureUnit];
-
-  const filteredCards = clothingItems.filter((item) => {
-    return item.weather.toLowerCase() === weatherType;
+  const filteredCards = cards?.filter((item) => {
+    return item.weather?.toLowerCase() === weatherType;
   });
-
   return (
-    <main className="weather__main">
-      <WeatherCard day={false} type="nightstormy" weatherTemp={weatherTemp} />
-      <section className="card_section" id="card-section">
-        Today is {currentTempString} / You may want to wear:
-        <div className="card_items">
-          {filteredCards.map((item) => (
-            <ItemCard key={item.id} item={item} onSelectCard={onSelectCard} />
-          ))}
+    <main className="main">
+      <WeatherCard weatherCard={weatherCard} weatherTemp={currentTemp} />
+      <section className="card__section" id="cards-section">
+        <h2 className="main__heading">
+          Today is {currentTemp} {currentTemperatureUnit} / You may want to wear
+        </h2>
+        <div className="card__items">
+          {Array.isArray(filteredCards) &&
+            filteredCards.map((item) => <ItemCard key={item._id} item={item} onSelectCard={onSelectCard} onCardLike={onCardLike} />)}
         </div>
       </section>
     </main>
   );
 }
+
 export default Main;

@@ -1,20 +1,54 @@
-import { useContext } from "react";
-import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
+import { useState, useContext, useEffect } from "react";
 import "../blocks/ToggleSwitch.css";
+import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
 
-const ToggleSwitch = () => {
-  const { currentTemperatureUnit, handleToggleSwitchChange } = useContext(CurrentTemperatureUnitContext);
+function ToggleSwitch() {
+  const { currentTemperatureUnit, handleToggleSwitchChange } = useContext(
+    CurrentTemperatureUnitContext
+  );
 
-  const isChecked = currentTemperatureUnit === "C";
+  const [isChecked, setIsChecked] = useState(currentTemperatureUnit === "C");
+  useEffect(
+    () => setIsChecked(currentTemperatureUnit === "C"),
+    [currentTemperatureUnit]
+  );
+
+  const white = "#FFF";
+  const grey = "rgba(0, 0, 0, 0.5)";
 
   return (
-    <label className="switch">
-      <input className="switch__box" type="checkbox" onClick={handleToggleSwitchChange}></input>
-      <span className={currentTemperatureUnit === "F" ? "switch__slider-F" : "switch__slider-C"}></span>
-      <p className={`switch__temp-F ${currentTemperatureUnit === "F" ? "switch_active" : ""}`}>F</p>
-      <p className={`switch__temp-C ${currentTemperatureUnit === "C" ? "switch_active" : ""}`}>C</p>
-    </label>
+    <div className="switch">
+      <input
+        className="switch__input"
+        id={`toggle_switch`}
+        type="checkbox"
+        checked={isChecked}
+        onChange={handleToggleSwitchChange}
+        value={currentTemperatureUnit}
+      />
+      <label className="switch__label" htmlFor={`toggle_switch`}>
+        <span className={`switch__button`} />
+        <div className="switch__states">
+          <span
+            className="switch__f"
+            style={{
+              color: (!isChecked && white) || (isChecked && grey),
+            }}
+          >
+            F
+          </span>
+          <span
+            className="switch__c"
+            style={{
+              color: (!isChecked && grey) || (isChecked && white),
+            }}
+          >
+            C
+          </span>
+        </div>
+      </label>
+    </div>
   );
-};
+}
 
 export default ToggleSwitch;

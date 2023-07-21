@@ -1,15 +1,18 @@
 .footer {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
+  padding: 0px 40px;
   font-family: "FamiljenGrotesk-Medium", Arial, sans-serif;
+  font-weight: 500;
   font-size: 16px;
   line-height: 20px;
 }
 
-.footer_name {
-  padding: 85px 0 24px 40px;
+.footer__name {
+  padding: 85px 0 24px 0px;
 }
 
-.footer_year {
-  padding: 85px 24px 24px 0;
+.footer__year {
+  padding: 85px 0px 24px 0;
 }

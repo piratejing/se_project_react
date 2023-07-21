@@ -1,17 +1,19 @@
-.weather__main {
-  padding: 28px 40px 0 40px;
-}
-
 .weather {
   position: relative;
+  padding: 0px;
+  margin: 0px 40px;
 }
 
-.weather__temp {
+.weather__info {
   position: absolute;
   top: 20px;
   left: 16px;
-  color: #ffffff;
+  color: white;
   font-size: 36px;
+  line-height: 40px;
+  font-family: "FamiljenGrotesk-Bold", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .weather__image {
