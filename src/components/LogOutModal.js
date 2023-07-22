@@ -4,11 +4,7 @@ import "../blocks/LogOut.css";
 const LogoutModal = ({ isOpen, onClose, handleLogout }) => {
   return (
     <div className="modal modal__logout-container">
-      <button
-        className="modal__logout-popup-close"
-        type="button"
-        onClick={onClose}
-      ></button>
+      <button className="modal__logout-popup-close" type="button" onClick={onClose}></button>
       <div className="modal__logout-message">
         <p className="modal__logout-text">Are you sure you want to log out?</p>
       </div>

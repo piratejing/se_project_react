@@ -10,11 +10,7 @@ const WeatherCard = ({ weatherCard, weatherTemp }) => {
       <div className="weather__info">
         {weatherTemp} {currentTemperatureUnit}
       </div>
-      <img
-        src={weatherCard}
-        alt="weatherinfo-card"
-        className="weather__image"
-      />
+      <img src={weatherCard} alt="weatherinfo-card" className="weather__image" />
     </section>
   );
 };

@@ -3,15 +3,10 @@ import "../blocks/ToggleSwitch.css";
 import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
 
 function ToggleSwitch() {
-  const { currentTemperatureUnit, handleToggleSwitchChange } = useContext(
-    CurrentTemperatureUnitContext
-  );
+  const { currentTemperatureUnit, handleToggleSwitchChange } = useContext(CurrentTemperatureUnitContext);
 
   const [isChecked, setIsChecked] = useState(currentTemperatureUnit === "C");
-  useEffect(
-    () => setIsChecked(currentTemperatureUnit === "C"),
-    [currentTemperatureUnit]
-  );
+  useEffect(() => setIsChecked(currentTemperatureUnit === "C"), [currentTemperatureUnit]);
 
   const white = "#FFF";
   const grey = "rgba(0, 0, 0, 0.5)";

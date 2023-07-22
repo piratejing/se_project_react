@@ -15,20 +15,9 @@ import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitCon
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { signUp, signIn, checkToken } from "../utils/auth";
 import { useEffect, useState } from "react";
-import {
-  getWeatherCard,
-  getForecastWeather,
-  parseWeatherData,
-} from "../utils/weatherApi";
+import { getWeatherCard, getForecastWeather, parseWeatherData } from "../utils/weatherApi";
 import { Route, Switch } from "react-router-dom";
-import {
-  getClothingItems,
-  addClothingItem,
-  deleteCard,
-  editProfile,
-  addCardLike,
-  removeCardLike,
-} from "../utils/api";
+import { getClothingItems, addClothingItem, deleteCard, editProfile, addCardLike, removeCardLike } from "../utils/api";
 import { HashRouter } from "react-router-dom/cjs/react-router-dom";
 
 function App() {
@@ -60,9 +49,7 @@ function App() {
   };
 
   const handleToggleSwitchChange = () => {
-    currentTemperatureUnit === "F"
-      ? setCurrentTemperatureUnit("C")
-      : setCurrentTemperatureUnit("F");
+    currentTemperatureUnit === "F" ? setCurrentTemperatureUnit("C") : setCurrentTemperatureUnit("F");
   };
 
   const handleAddItemSubmit = ({ name, imageUrl, weather }) => {
@@ -249,9 +236,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <HashRouter>
         <div className="page">
-          <CurrentTemperatureUnitContext.Provider
-            value={{ currentTemperatureUnit, handleToggleSwitchChange }}
-          >
+          <CurrentTemperatureUnitContext.Provider value={{ currentTemperatureUnit, handleToggleSwitchChange }}>
             <Header
               onCreateModal={handleCreateModal}
               cityName={city}
@@ -284,20 +269,9 @@ function App() {
             </Switch>
             <Footer />
             {activeModal === "create" && (
-              <AddItemModal
-                isOpen={activeModal === "create"}
-                onAddItem={handleAddItemSubmit}
-                onClose={handleCloseModal}
-                token={token}
-              />
+              <AddItemModal isOpen={activeModal === "create"} onAddItem={handleAddItemSubmit} onClose={handleCloseModal} token={token} />
             )}
-            {activeModal === "preview" && (
-              <ItemModal
-                selectedCard={selectedCard}
-                onClose={handleCloseModal}
-                onOpenDeleteModal={openDeleteModal}
-              />
-            )}
+            {activeModal === "preview" && <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} onOpenDeleteModal={openDeleteModal} />}
             {deleteCardModal && (
               <DeleteCardModal
                 onClose={() => {
