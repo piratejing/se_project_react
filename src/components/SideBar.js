@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "../blocks/Sidebar.css";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-const SideBar = ({ handleEditProfile, handleLogOut }) => {
+const Sidebar = ({ handleEditProfile, handleLogOut }) => {
   const currentUser = useContext(CurrentUserContext);
   const currentUserName = currentUser?.data?.name;
   const currentUserAvatar = currentUser?.data?.avatar;
@@ -23,4 +23,4 @@ const SideBar = ({ handleEditProfile, handleLogOut }) => {
   );
 };
 
-export default SideBar;
+export default Sidebar;
