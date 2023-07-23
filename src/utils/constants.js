@@ -88,6 +88,6 @@ export const weatherOptions = [
   },
 ];
 
-export const latitude = "45.485168";
-export const longitude = "-122.804489";
+export const latitude = "45";
+export const longitude = "-122";
 export const APIkey = "428e15f66fd95028ada95b6b6f1555d4";
