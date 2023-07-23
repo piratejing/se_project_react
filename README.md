@@ -6,7 +6,7 @@ The functionality at this point is complete, we have a few modals that can funct
 
 One modal is seen when clicking on one of the garmet pictures, the user can "preview" the image and is given the description of the image as well as the weather type that garmet is recommended to wear in.
 
-The second modal is seen when the user clicks on the "+ Add new garmet" in the header. A form is opened giving a couple of inputs for the user to add a link to an image of the garmet as well as a description of the garmet and a couple of radio buttons to categorize the garmet in the desired weather type they would wear said garmet.
+Another modal is seen when the user clicks on the "+ Add new garmet" in the header. A form is opened giving a couple of inputs for the user to add a link to an image of the garmet as well as a description of the garmet and a couple of radio buttons to categorize the garmet in the desired weather type they would wear said garmet.
 
 Modals for signing in and editing user profile.
 
