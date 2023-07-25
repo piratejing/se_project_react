@@ -8,17 +8,17 @@ const LoginModal = ({ isOpen, onUserLogin, onClose, switchToRegisterModal }) => 
 
   useEffect(() => {
     const handleEscapeKey = (event) => {
-      if (event.keyCode === 27 && isOpen) {
+      if (event.key === "Escape" && isOpen) {
         onClose();
       }
     };
 
-    window.addEventListener("keydown", handleEscapeKey);
+    document.addEventListener("keydown", handleEscapeKey);
 
     return () => {
-      window.removeEventListener("keydown", handleEscapeKey);
+      document.removeEventListener("keydown", handleEscapeKey);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   useEffect(() => {
     setUserLoginEmail("");

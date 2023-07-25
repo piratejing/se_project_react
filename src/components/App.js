@@ -35,7 +35,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [token, setToken] = useState();
+  const [token, setToken] = useState("");
 
   const handleCreateModal = () => {
     setActiveModal("create");
