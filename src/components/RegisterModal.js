@@ -1,119 +1,121 @@
 import React from "react";
-import ModalWithForm from "../components/ModalWithForm";
-import { useState, useEffect } from "react";
+import ModalWithForm from "./ModalWithForm";
 
-const RegisterModal = ({ isOpen, onRegisterUser, onClose, switchToLoginModal }) => {
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [userName, setUserName] = useState("");
-  const [userAvatarLink, setUserAvatarLink] = useState("");
+const RegisterModal = ({ onClose, handleOutClick, handleRegister, handleSigninClick, isLoading }) => {
+  const [emailValue, setEmail] = React.useState("");
+  const [passwordValue, setPassword] = React.useState("");
+  const [nameValue, setNameValue] = React.useState("");
+  const [avatarValue, setAvatarValue] = React.useState("");
 
-  useEffect(() => {
-    const handleEscapeKey = (event) => {
-      if (event.key === "Escape" && isOpen) {
-        onClose();
-      }
+  const buttonClasses = {
+    mainButton: "modal__login",
+    altButton: "modal__other",
+  };
+  const buttonTexts = {
+    button: isLoading ? "Saving..." : "Next",
+    other: "or Log in",
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const user = {
+      avatar: avatarValue,
+      name: nameValue,
+      email: emailValue,
+      password: passwordValue,
     };
+    handleRegister(user);
+  };
 
-    document.addEventListener("keydown", handleEscapeKey);
+  const onEmailChange = (evt) => {
+    setEmail(evt.target.value);
+  };
 
-    return () => {
-      document.removeEventListener("keydown", handleEscapeKey);
-    };
-  }, [isOpen]);
+  const onPasswordChange = (evt) => {
+    setPassword(evt.target.value);
+  };
 
-  useEffect(() => {
-    setUserEmail("");
-    setUserPassword("");
-    setUserName("");
-    setUserAvatarLink("");
-  }, [isOpen]);
+  const onNameChange = (evt) => {
+    setNameValue(evt.target.value);
+  };
 
-  function handleUserEmailChange(e) {
-    setUserEmail(e.target.value);
-  }
+  const onAvatarChange = (evt) => {
+    setAvatarValue(evt.target.value);
+  };
 
-  function handleUserPasswordChange(e) {
-    setUserPassword(e.target.value);
-  }
-  function handleUserNameChange(e) {
-    setUserName(e.target.value);
-  }
-
-  function handleUserAvatarLinkChange(e) {
-    setUserAvatarLink(e.target.value);
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const newUser = {};
-    newUser.email = userEmail;
-    newUser.password = userPassword;
-    newUser.name = userName;
-    newUser.avatar = userAvatarLink;
-    onRegisterUser(newUser);
-  }
+  React.useEffect(() => {
+    setEmail("");
+    setPassword("");
+    setNameValue("");
+    setAvatarValue("");
+  }, []);
 
   return (
-    <ModalWithForm buttonText="Next" title="Sign up" onClose={onClose} name="new-user-signup" isOpen={isOpen} onSubmit={handleSubmit}>
-      <label className="modal__label" id="modal-emaillabel">
+    <ModalWithForm
+      title="Sign up"
+      name="Signup"
+      onClose={onClose}
+      buttonText={buttonTexts}
+      onOutClick={handleOutClick}
+      handleSubmit={handleSubmit}
+      buttonClass={buttonClasses}
+      altButtonClick={handleSigninClick}
+    >
+      <label className="modal__label">
         Email*
         <input
           className="modal__input"
-          id="modal-email"
           type="email"
-          name="email"
           placeholder="Email"
-          value={userEmail}
-          onChange={handleUserEmailChange}
           required
+          name="email"
+          id="inputEmail"
+          minLength="1"
+          maxLength="30"
+          value={emailValue}
+          onChange={onEmailChange}
         />
       </label>
-      <span className="modal__error" id="modal-email-error"></span>
-      <label className="modal__label" id="modal-passwordlabel">
+      <label className="modal__label">
         Password*
         <input
           className="modal__input"
-          id="modal-password"
-          type="password"
-          name="password"
           placeholder="Password"
-          value={userPassword}
-          onChange={handleUserPasswordChange}
           required
+          name="password"
+          id="input-Password"
+          type="password"
+          value={passwordValue}
+          onChange={onPasswordChange}
         />
       </label>
-      <label className="modal__label" id="modal-namelabel">
-        Name
+      <label className="modal__label">
+        Name*
         <input
           className="modal__input"
-          id="modal-name"
           type="text"
+          placeholder="Name"
           name="name"
+          id="input-Name"
+          required
           minLength="1"
           maxLength="30"
-          placeholder="Name"
-          value={userName}
-          onChange={handleUserNameChange}
-          required
+          value={nameValue}
+          onChange={onNameChange}
         />
       </label>
-      <label className="modal__label" id="modal-imagelabel">
-        Avatar URL
+      <label className="modal__label">
+        Avatar
         <input
           className="modal__input"
-          id="modal-link"
-          type="url"
-          name="link"
           placeholder="Avatar URL"
-          value={userAvatarLink}
-          onChange={handleUserAvatarLinkChange}
+          name="avatarUrl"
+          id="inputAvatarUrl"
+          type="url"
+          value={avatarValue}
+          onChange={onAvatarChange}
         />
       </label>
-      <div className="modal__switchlink-register" onClick={switchToLoginModal}>
-        or Log In
-      </div>
     </ModalWithForm>
   );
 };

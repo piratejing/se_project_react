@@ -1,39 +1,43 @@
-import "../blocks/Main.css";
-import React from "react";
-import WeatherCard from "./WeatherCard";
-import ItemCard from "./ItemCard";
+import React, { useContext } from "react";
 import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
-import { useContext } from "react";
+import WeatherCard from "../components/WeatherCard";
+import ItemCard from "./ItemCard";
+import { temperature } from "../utils/weatherApi";
+import "../blocks/Main.css";
+import "../blocks/Card.css";
 
-function Main({ cards, weatherTemp, onSelectCard, weatherCard, onCardLike }) {
+function Main({ onLike, weatherTemp, onSelectCard, clothingItems, isLoggedIn }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-  const currentTemp = weatherTemp[currentTemperatureUnit];
+
   const getWeatherType = () => {
-    if (currentTemp >= 86) {
+    if (weatherTemp >= 86) {
       return "hot";
-    } else if (currentTemp >= 66 && currentTemp <= 85) {
+    } else if (weatherTemp >= 66 && weatherTemp <= 85) {
       return "warm";
-    } else if (currentTemp <= 65) {
+    } else if (weatherTemp <= 65) {
       return "cold";
     }
   };
+
   const weatherType = getWeatherType();
 
-  const filteredCards = cards?.filter((item) => {
-    return item.weather?.toLowerCase() === weatherType;
-  });
+  const currentTemp = temperature(weatherTemp);
+  const currentTempString = currentTemp[currentTemperatureUnit];
+
   return (
     <main className="main">
-      <WeatherCard weatherCard={weatherCard} weatherTemp={currentTemp} />
-      <section className="card__section" id="cards-section">
-        <h2 className="main__heading">
-          Today is {currentTemp} {currentTemperatureUnit} / You may want to wear
-        </h2>
-        <div className="card__items">
-          {Array.isArray(filteredCards) &&
-            filteredCards.map((item) => <ItemCard key={item._id} item={item} onSelectCard={onSelectCard} onCardLike={onCardLike} />)}
-        </div>
-      </section>
+      <div className="main__container">
+        <WeatherCard day={true} type="sunny" weatherTemp={weatherTemp} />
+        <section className="main__clothing">
+          <p className="main__text">Today is {currentTempString} / You may want to wear:</p>
+          <ul className="main__cards">
+            {Array.isArray(clothingItems) &&
+              clothingItems.map((item) => (
+                <ItemCard key={item._id} item={item} onSelectCard={onSelectCard} onLike={onLike} isLoggedIn={isLoggedIn} />
+              ))}
+          </ul>
+        </section>
+      </div>
     </main>
   );
 }

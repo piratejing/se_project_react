@@ -1,53 +1,58 @@
-import "../blocks/Header.css";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import headerLogo from "../images/logo.svg";
-import ToggleSwitch from "./ToggleSwitch";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import ToggleSwitch from "./TempSwitch";
+import headerButton from "../images/header-button.svg";
+import CurrentUserContext from "../contexts/CurrentUserContext";
+import "../blocks/Header.css";
 
-const Header = ({ cityName, onCreateModal, handleRegistration, handleLogin, isLoggedIn }) => {
+const Header = ({ parseWeatherData, handleSignIn, handleRegister, isLoggedIn, handleClick, handleMobile }) => {
   const currentUser = useContext(CurrentUserContext);
-  const currentUserName = currentUser?.data?.name;
-  const currentUserAvatar = currentUser?.data?.avatar;
+
+  const userData = currentUser ? currentUser : { name: "", avatar: "" };
+
+  if (!parseWeatherData) return null;
+
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
+
   return (
     <header className="header">
-      <div className="header__info-container">
-        <Link className="header__logo-link" to="/">
-          <img className="header__logo" src={headerLogo} alt="logo" />
-        </Link>
-        <p className="header__date-city">
-          {currentDate}, {cityName}
+      <div className="header__left">
+        <NavLink exact to="/">
+          <img className="header__logo" src={headerLogo} alt=" WTWR logo"></img>
+        </NavLink>
+        <p className="header__date" id="currentDate">
+          {currentDate}, Oregon
         </p>
       </div>
-      <div className="header__info-container">
+      <button className="header__button" type="button" aria-label="mobile menu" onClick={handleMobile}>
+        <img src={headerButton} className="header__mobile-menu" alt="Header Mobile Menu" />
+      </button>
+      <div className="header__right">
         <ToggleSwitch />
         {isLoggedIn ? (
           <>
-            <button className="header__add-button" type="button" onClick={onCreateModal}>
-              + Add Clothes
+            <button type="button" onClick={handleClick} className="header__add" aria-label="Add">
+              + Add clothes
             </button>
-            <Link className="header__userinfo-link" to="/profile">
-              <div className="header__username">{currentUserName}</div>
-              {currentUserAvatar ? (
-                <img className="header__useravatar" src={currentUserAvatar} alt="avatar" />
-              ) : (
-                <div className="header__useravatar-letter">{currentUserName?.[0]}</div>
-              )}
-            </Link>
+            <NavLink to="/profile" className="header__link">
+              <p className="header__name">{userData.name}</p>
+
+              <img className="header__avatar" src={userData.avatar} alt="User avatar" />
+            </NavLink>
           </>
         ) : (
-          <>
-            <button type="button" className="header__signup-button" onClick={handleRegistration}>
+          <div className="header__login-info">
+            <button className="header__signup" onClick={handleRegister}>
               Sign Up
             </button>
-            <button type="button" className="header__login-button" onClick={handleLogin}>
+            <button className="header__login" onClick={handleSignIn}>
               Log In
             </button>
-          </>
+          </div>
         )}
       </div>
     </header>

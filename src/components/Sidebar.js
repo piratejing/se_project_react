@@ -1,26 +1,29 @@
 import React, { useContext } from "react";
-import "../blocks/Sidebar.css";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
-const Sidebar = ({ handleEditProfile, handleLogOut }) => {
+const SideBar = ({ isLoggedIn, editClick, logoutClick }) => {
   const currentUser = useContext(CurrentUserContext);
-  const currentUserName = currentUser?.data?.name;
-  const currentUserAvatar = currentUser?.data?.avatar;
 
   return (
-    <div className="sidebar">
-      <div className="sidebar__container">
-        <img className="sidebar__useravatar" src={currentUserAvatar} alt="avatar" />
-        <div className="sidebar__username">{currentUserName}</div>
-      </div>
-      <button type="button" className="sidebar__edit-profile-button" onClick={handleEditProfile}>
+    <div className="profile__sidebar">
+      {isLoggedIn && currentUser && (
+        <div className="profile__info">
+          {currentUser.avatar ? (
+            <img className="profile__avatar" src={currentUser.avatar} alt="User avatar" />
+          ) : (
+            <p className="profile__note">{currentUser.name[0]}</p>
+          )}
+          <p className="profile__name">{currentUser.name}</p>
+        </div>
+      )}
+      <button className="profile__edit profile__button" onClick={editClick}>
         Change profile data
       </button>
-      <button type="button" className="sidebar__edit-logout-button" onClick={handleLogOut}>
+      <button className="profile__logout profile__button" onClick={logoutClick}>
         Log out
       </button>
     </div>
   );
 };
 
-export default Sidebar;
+export default SideBar;

@@ -1,15 +1,16 @@
 import React from "react";
-import ClothesSection from "./ClothesCardSection";
-import Sidebar from "./Sidebar";
-import "../blocks/Profile.css";
+import SideBar from "./SideBar";
+import ClothesSection from "./ClothesSection";
 
-function Profile({ cards, onCreateModal, onSelectCard, onEditProfile, onCardLike, onLogOut, userLoggedIn }) {
+const Profile = ({ items, onCardClick, onAddClick, isLoggedIn, editClick, logoutClick, onLike }) => {
   return (
-    <div className="profile">
-      <Sidebar handleEditProfile={onEditProfile} handleLogOut={onLogOut} />
-      <ClothesSection cards={cards} onCreateModal={onCreateModal} onSelectCard={onSelectCard} onCardLike={onCardLike} />
-    </div>
+    <section className="profile">
+      <div className="profile__content">
+        <SideBar isLoggedIn={isLoggedIn} editClick={editClick} logoutClick={logoutClick} />
+        <div className="profile__info"></div>
+        <ClothesSection cards={items} onCardClick={onCardClick} onAddClick={onAddClick} isLoggedIn={isLoggedIn} onLike={onLike} />
+      </div>
+    </section>
   );
-}
-
+};
 export default Profile;

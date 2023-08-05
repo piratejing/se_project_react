@@ -1,77 +1,119 @@
-const baseUrl = "http://localhost:3001";
+import { checkResponse } from "./constants";
 
-export const checkResponse = (res) => {
-  if (res.ok) {
-    return res.json();
-  } else {
-    return Promise.reject(`Error ${res.status}`);
+export const baseUrl = process.env.NODE_ENV === "production" ? "https://api.styleguide.mooo.com" : "http://localhost:3001";
+
+const getItem = (key) => {
+  try {
+    const item = localStorage.getItem(key);
+    return item;
+  } catch (error) {
+    console.error("Error retrieving item from local storage:", error);
+    return null;
   }
 };
 
-export const getClothingItems = () => {
-  return fetch(`${baseUrl}/items`, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-    },
-  }).then((res) => checkResponse(res));
+function request(url, options) {
+  return fetch(url, options).then(checkResponse);
+}
+
+const itemsApi = {
+  get: () => {
+    return request(`${baseUrl}/items`);
+  },
+  add: ({ name, imageUrl, weather }) => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getItem("jwt")}`,
+      },
+      body: JSON.stringify({
+        name,
+        imageUrl,
+        weather,
+      }),
+    };
+    return request(`${baseUrl}/items`, options);
+  },
+  remove: (id) => {
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getItem("jwt")}`,
+      },
+    };
+    return request(`${baseUrl}/items/${id}`, options);
+  },
+  like: (id) => {
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getItem("jwt")}`,
+      },
+    };
+    return request(`${baseUrl}/items/${id}/likes`, options);
+  },
+  unlike: (id) => {
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getItem("jwt")}`,
+      },
+    };
+    return request(`${baseUrl}/items/${id}/likes`, options).catch((error) => {
+      console.log("Error unliking item:", error);
+      throw error;
+    });
+  },
 };
 
-export const addClothingItem = ({ name, imageUrl, weather, token }) => {
-  return fetch(`${baseUrl}/items`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      name,
-      imageUrl,
-      weather,
-    }),
-  }).then((res) => checkResponse(res));
+export default itemsApi;
+
+const userApi = {
+  signup: (avatar, name, email, password) => {
+    return fetch(`${baseUrl}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getItem("jwt")}`,
+      },
+      body: JSON.stringify({
+        avatar,
+        name,
+        email,
+        password,
+      }),
+    }).then(checkResponse);
+  },
+  signin: (email, password) => {
+    return fetch(`${baseUrl}/signin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getItem("jwt")}`,
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    }).then(checkResponse);
+  },
+  getCurrentUser: () => {
+    return fetch(`${baseUrl}/users/me`).then(checkResponse);
+  },
+  updateCurrentUser: (data) => {
+    return fetch(`${baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getItem("jwt")}`,
+      },
+      body: JSON.stringify(data),
+    }).then(checkResponse);
+  },
 };
 
-export const deleteCard = (id, token) => {
-  return fetch(`${baseUrl}/items/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  }).then((res) => checkResponse(res));
-};
-
-export const editProfile = ({ name, avatar, token }) => {
-  return fetch(`${baseUrl}/users/me`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      name,
-      avatar,
-    }),
-  }).then((res) => checkResponse(res));
-};
-
-export const addCardLike = (id, user, token) => {
-  return fetch(`${baseUrl}/items/${id}/likes`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  }).then((res) => checkResponse(res));
-};
-
-export const removeCardLike = (id, user, token) => {
-  return fetch(`${baseUrl}/items/${id}/likes`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  }).then((res) => checkResponse(res));
-};
+export { itemsApi, userApi };

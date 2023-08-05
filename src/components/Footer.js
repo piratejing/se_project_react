@@ -1,12 +1,12 @@
+import React from "react";
 import "../blocks/Footer.css";
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="footer__name">Developed by Alan Shieh</div>
-      <div className="footer__year">2023</div>
+      <p className="footer__author">Developed By Alan Shieh</p>
+      <p className="footer__year">2023</p>
     </footer>
   );
 };
-
 export default Footer;

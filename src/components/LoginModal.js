@@ -1,80 +1,81 @@
-import React from "react";
-import ModalWithForm from "../components/ModalWithForm";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
+import ModalWithForm from "./ModalWithForm";
 
-const LoginModal = ({ isOpen, onUserLogin, onClose, switchToRegisterModal }) => {
-  const [userLoginEmail, setUserLoginEmail] = useState("");
-  const [userLoginPassword, setUserLoginPassword] = useState("");
+const LoginModal = ({ onClose, handleOutClick, handleSignin, handleRegisterClick, isLoading }) => {
+  const [emailValue, setEmail] = useState("");
+  const [passwordValue, setPassword] = useState("");
 
-  useEffect(() => {
-    const handleEscapeKey = (event) => {
-      if (event.key === "Escape" && isOpen) {
-        onClose();
-      }
-    };
+  const buttonClasses = {
+    mainButton: "modal__login",
+    altButton: "modal__other",
+  };
+  const buttonTexts = {
+    button: isLoading ? "Saving..." : "Log in",
+    other: "or Register",
+  };
 
-    document.addEventListener("keydown", handleEscapeKey);
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
 
-    return () => {
-      document.removeEventListener("keydown", handleEscapeKey);
-    };
-  }, [isOpen]);
+    if (!emailValue || !passwordValue) {
+      return;
+    }
+    const user = { email: emailValue, password: passwordValue };
+    handleSignin(user);
+  };
 
-  useEffect(() => {
-    setUserLoginEmail("");
-    setUserLoginPassword("");
-  }, [isOpen]);
+  const onEmailChange = (evt) => {
+    setEmail(evt.target.value);
+  };
 
-  function handleUserLoginEmailChange(e) {
-    setUserLoginEmail(e.target.value);
-  }
+  const onPasswordChange = (evt) => {
+    setPassword(evt.target.value);
+  };
 
-  function handleUserLoginPasswordChange(e) {
-    setUserLoginPassword(e.target.value);
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const userLogin = {};
-    userLogin.email = userLoginEmail;
-    userLogin.password = userLoginPassword;
-    onUserLogin(userLogin);
-  }
+  React.useEffect(() => {
+    setEmail("");
+    setPassword("");
+  }, []);
 
   return (
-    <ModalWithForm buttonText="Log in" title="Log in" onClose={onClose} name="user-login" isOpen={isOpen} onSubmit={handleSubmit}>
-      <label className="modal__label" id="modal-emaillabel">
+    <ModalWithForm
+      title="Log in"
+      name="Login"
+      onClose={onClose}
+      buttonText={buttonTexts}
+      onOutClick={handleOutClick}
+      handleSubmit={handleSubmit}
+      buttonClass={buttonClasses}
+      altButtonClick={handleRegisterClick}
+    >
+      <label className="modal__label">
         Email
         <input
           className="modal__input"
-          id="modal-email"
           type="email"
-          name="email"
           placeholder="Email"
-          value={userLoginEmail}
-          onChange={handleUserLoginEmailChange}
           required
+          name="email"
+          id="inputEmail"
+          minLength="1"
+          maxLength="30"
+          value={emailValue}
+          onChange={onEmailChange}
         />
       </label>
-      <span className="modal__error" id="modal-email-error"></span>
-      <label className="modal__label" id="modal-passwordlabel">
+      <label className="modal__label">
         Password
         <input
           className="modal__input"
-          id="modal-password"
-          type="password"
-          name="password"
           placeholder="Password"
-          value={userLoginPassword}
-          onChange={handleUserLoginPasswordChange}
           required
+          name="password"
+          id="inputPassword"
+          type="password"
+          value={passwordValue}
+          onChange={onPasswordChange}
         />
       </label>
-      <p className="modal__switchlink-login" onClick={switchToRegisterModal}>
-        or Register
-      </p>
-      <span className="modal__error-login" id="modal-link-error"></span>
     </ModalWithForm>
   );
 };
