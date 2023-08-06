@@ -1,89 +1,37 @@
-export const latitude = "45.4869";
-export const longitude = "-122.8040";
-export const APIkey = "428e15f66fd95028ada95b6b6f1555d4";
+import sunnyDay from "../images/day/sunny.png";
+import cloudyDay from "../images/day/cloudy.png";
+import rainDay from "../images/day/rain.png";
+import stormDay from "../images/day/storm.png";
+import snowDay from "../images/day/snow.png";
+import fogDay from "../images/day/fog.png";
+import sunnyNight from "../images/night/sunny.png";
+import cloudyNight from "../images/night/cloudy.png";
+import rainNight from "../images/night/rain.png";
+import stormNight from "../images/night/storm.png";
+import snowNight from "../images/night/snow.png";
+import fogNight from "../images/night/fog.png";
 
-export function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    return Promise.reject(`Error: ${res.status}`);
-  }
-}
+const latitude = 45.4869;
+const longitude = -122.804;
 
-export const defaultClothingItems = [
-  {
-    id: 0,
-    name: "Cap",
-    weather: "hot",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png?etag=f3dad389b22909cafa73cff9f9a3d591",
-  },
-  {
-    id: 1,
-    name: "Hoodie",
-    weather: "warm",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Hoodie.png?etag=5f52451d0958ccb1016c78a45603a4e8",
-  },
-  {
-    id: 2,
-    name: "Jacket",
-    weather: "cold",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Jacket.png?etag=f4bb188deaa25ac84ce2338be2d404ad",
-  },
-  {
-    id: 3,
-    name: "Sneakers",
-    weather: "cold",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sneakers.png?etag=3efeec41c1c78b8afe26859ca7fa7b6f",
-  },
-  {
-    id: 4,
-    name: "T-Shirt",
-    weather: "hot",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09",
-  },
-  {
-    id: 5,
-    name: "Winter coat",
-    weather: "cold",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Coat.png?etag=298717ed89d5e40b1954a1831ae0bdd4",
-  },
-];
+const ApiKey = "428e15f66fd95028ada95b6b6f1555d4";
 
-export const weatherOptions = [
-  { url: require("../images/day/sunny.svg").default, day: true, type: "sunny" },
-  { url: require("../images/day/storm.svg").default, day: true, type: "storm" },
-  { url: require("../images/day/snow.svg").default, day: true, type: "snow" },
-  { url: require("../images/day/rain.svg").default, day: true, type: "rain" },
-  { url: require("../images/day/fog.svg").default, day: true, type: "fog" },
-  {
-    url: require("../images/day/cloudy.svg").default,
-    day: true,
-    type: "cloudy",
-  },
-  {
-    url: require("../images/night/sunny.svg").default,
-    day: false,
-    type: "sunny",
-  },
-  {
-    url: require("../images/night/storm.svg").default,
-    day: false,
-    type: "storm",
-  },
-  {
-    url: require("../images/night/snow.svg").default,
-    day: false,
-    type: "snow",
-  },
-  {
-    url: require("../images/night/rain.svg").default,
-    day: false,
-    type: "rain",
-  },
-  { url: require("../images/night/fog.svg").default, day: false, type: "fog" },
-  {
-    url: require("../images/night/cloudy.svg").default,
-    day: false,
-    type: "cloudy",
-  },
-];
+export const dayWeatherCards = {
+  sunny: sunnyDay,
+  cloudy: cloudyDay,
+  rain: rainDay,
+  storm: stormDay,
+  snow: snowDay,
+  fog: fogDay,
+};
+
+export const nightWeatherCards = {
+  sunny: sunnyNight,
+  cloudy: cloudyNight,
+  rain: rainNight,
+  storm: stormNight,
+  snow: snowNight,
+  fog: fogNight,
+};
+
+export { latitude, longitude, ApiKey };

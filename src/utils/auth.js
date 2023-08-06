@@ -1,49 +1,54 @@
-import { checkResponse } from "./constants";
+import { request } from "./api";
+const baseUrl = process.env.NODE_ENV === "production" ? "https://api.wtwr-fma.mooo.com" : "http://localhost:3001";
 
-export const baseUrl = process.env.NODE_ENV === "production" ? "https://api.styleguide.mooo.com" : "http://localhost:3001";
+function signup(data) {
+  const { name, avatar, email, password } = data;
 
-export const signUp = (user) => {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(user),
-  })
-    .then((res) => checkResponse(res))
-    .then((res) => res);
-};
+    body: JSON.stringify({ avatar, email, name, password }),
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  });
+}
 
-export const signIn = ({ email, password }) => {
-  return fetch(`${baseUrl}/signin`, {
+function signin(user) {
+  const { email, password } = user;
+
+  return request(`${baseUrl}/signin`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
-  })
-    .then((res) => checkResponse(res))
-    .then((data) => {
-      if (data) {
-        localStorage.setItem("jwt", data.token);
-        return data;
-      }
-    });
-};
+  });
+}
 
-export const checkTokenValidity = (token) => {
-  return fetch(`${baseUrl}/users/me`, {
+function checkToken(token) {
+  return request(`${baseUrl}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
-  })
-    .then((res) => checkResponse(res))
-    .then((data) => data);
-};
-
-export function signOut(arg0) {
-  throw new Error("Function not implemented.");
+  });
 }
+
+function updateProfile(data, token) {
+  const { name, avatar } = data;
+
+  return request(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
+  });
+}
+
+export { signup, signin, checkToken, updateProfile };
