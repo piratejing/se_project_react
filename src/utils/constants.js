@@ -11,8 +11,8 @@ import stormNight from "../images/night/storm.png";
 import snowNight from "../images/night/snow.png";
 import fogNight from "../images/night/fog.png";
 
-const latitude = 45.4869;
-const longitude = -122.804;
+const latitude = 45.485168;
+const longitude = -122.804489;
 
 const ApiKey = "428e15f66fd95028ada95b6b6f1555d4";
 

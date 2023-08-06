@@ -1,5 +1,5 @@
 import { request } from "./api";
-const baseUrl = process.env.NODE_ENV === "production" ? "https://api.wtwr-fma.mooo.com" : "http://localhost:3001";
+const baseUrl = process.env.NODE_ENV === "production" ? "https://api.bingchilling.offbitch.com" : "http://localhost:3001";
 
 function signup(data) {
   const { name, avatar, email, password } = data;
