@@ -18,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* alanshieh41@bingchilling.offbitch.com:/home/alanshieh41/frontend"
+    "deploy": "npm run build && surge --domain wtwr.surge.sh ./build"
   },
   "eslintConfig": {
     "extends": [
