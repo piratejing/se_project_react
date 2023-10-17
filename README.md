@@ -8,11 +8,17 @@ One modal is seen when clicking on one of the garmet pictures, the user can "pre
 
 <img src="./src/images/wtwrmodal.png">
 
+![Clothes Modal](./src/images/wtwrmodal.png "Clothes Modal")
+
 Another modal is seen when the user clicks on the "+ Add new garmet" in the header. A form is opened giving a couple of inputs for the user to add a link to an image of the garmet as well as a description of the garmet and a couple of radio buttons to categorize the garmet in the desired weather type they would wear said garmet.
 
-Modals for signing in and editing user profile.
+Modals for signing in and logging in.
 
 <img src="./src/images/wtwrsignup.png">
+
+![Signup Modal](./src/images/wtwrsignup.png "Signup Modal")
+
+![Signin Modal](./src/images/wtwrlogin.png "Signin Modal")
 
 Modal for deleting item card.
 
