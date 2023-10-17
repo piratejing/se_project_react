@@ -16,6 +16,8 @@ This App is now connected to the Backend Server created by express.
 
 In this project we are also calling a weather API that is gathering longitude and latitude data to give clothing recommendations based on the weather in that area.
 
+- [Project Live](https://aroundus.surge.sh/](https://wtwr.surge.sh/)
+
 Figma
 
 We based it off of a figma design:
